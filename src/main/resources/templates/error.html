@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" html xmlns:="http://www.w3.org/1999/xhtml">
+<!-- Error page-->
+<head>
+    <meta charset="UTF-8">
+    <title>Error!</title>
+</head>
+<body>
+<style>
+
+    /* Funky, useless animation to draw attention to the 500 error.. :-)*/
+    .errorpicture {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        position: relative;
+        -webkit-animation-name: safariMoveIT;
+        -webkit-animation-duration: 4s;
+        -webkit-animation-direction: reverse;
+        animation-name: standardMoveIT;
+        animation-duration: 4s;
+        animation-direction: reverse;
+    }
+
+
+    @-webkit-keyframes safariMoveIT {
+        0%   {background-color:red; left:0px; top:0px;}
+        25%  {background-color:yellow; left:200px; top:0px;}
+        50%  {background-color:blue; left:200px; top:200px;}
+        75%  {background-color:green; left:0px; top:200px;}
+        100% {background-color:red; left:0px; top:0px;}
+    }
+
+
+    @keyframes standardMoveIT {
+        0%   {left:0px; top:0px;}
+        25%  {left:200px; top:0px;}
+        50%  {left:200px; top:200px;}
+        75%  {left:0px; top:200px;}
+        100% {left:0px; top:0px;}
+    }
+</style>
+<div class="errorpicture">
+<image src="https://i.stack.imgur.com/QQOcg.jpg"></image>
+</div>
+</body>
+</html>

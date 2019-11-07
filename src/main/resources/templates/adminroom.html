@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Title</title>
+    <link rel="stylesheet" href="/adminroomstyle.css">
+
+
+</head>
+<body>
+
+<!-- Allows admin to create a new availability-->
+<div class="newAvailability">
+    <form th:object="${newAvailability}" method="post">
+        <input type="date" th:field="*{date}"/>
+        <button type="submit" id="createAvailability">Create Availability</button>
+    </form>
+</div>
+
+<!-- Lists out current availabilities for the room-->
+<div th:each="a : ${availability}" class="row" id="'div' + ${a.id}">
+    <div th:if="${a.booked}">
+        <ul class="cell">
+            <il>Availability ID:</il>
+            <il th:text="${a.id}"></il>
+        </ul>
+        <ul class="cell">
+            <il>Available date (BOOKED)</il>
+            <il th:text="${a.date}"></il>
+        </ul>
+        <ul class="cell">
+            <il>Username:</il>
+            <il th:text="${a.u_name}"></il>
+        </ul>
+        <ul class="cell">
+            <il>Comment:</il>
+            <il th:text="${a.comment}"></il>
+        </ul>
+    </div>
+    <div th:unless="${a.booked}">
+    <ul class="cell ">
+        <il>Availability ID: </il>
+        <il th:text="${a.id}"></il>
+    </ul>
+    <ul class="cell">
+        <il>Available date: </il>
+        <il th:text="${a.date}"></il>
+    </ul>
+    </div>
+</div>
+</body>
+</html>

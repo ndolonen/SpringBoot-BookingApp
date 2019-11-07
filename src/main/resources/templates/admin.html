@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Title</title>
+    <link rel="stylesheet" href="/adminstyle.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<!-- Notification on top of the site for information-->
+<div class="container">
+    <div class="alert alert-success">
+        <strong>All boxes marked with red is required in order to successfully create a room</strong>
+    </div>
+</div>
+<p>You may create a new room, or update an existing one here (as long as you know the ID of the room.)</p>
+<!-- Fields and POST to create a new room-->
+<div class="newRoom">
+    <form th:object="${newRoom}" method="post" enctype="multipart/form-data">
+        <p>Name of the Room</p>
+        <input type="text" th:field="*{name}"/>
+        <p>Description of the room</p>
+        <input type="text" th:field="*{description}"/>
+        <p>Image of the Room</p>
+        <input type="file" name="files" multiple/>
+        <button type="submit" id="createRoom">Create Room</button>
+    </form>
+</div>
+
+<!-- Deleting room, doesn't work - but the JQuery/AJAX looks OK..-->
+<div class="deleteRoom">
+    <div>
+        <p>ID of the room to delete</p>
+        <input type="text" id="deleteById"/>
+        <button type="submit" id="deleteRoom">Delete Room</button>
+    </div>
+</div>
+
+
+<!-- List of the rooms-->
+<h1>Click on a room to see bookings for the room</h1>
+<div th:each="r : ${room}" class="row">
+    <div class="chooseroom" th:id="${r.id}">
+        <img th:src="'/image/' + ${r.imagename}" height="100" width="100">
+        <ul class="cell ">
+            <il>ID: </il>
+            <il th:text="${r.id}"></il>
+        </ul>
+        <ul class="cell">
+            <il>Name: </il>
+            <il th:text="${r.name}"></il>
+        </ul>
+        <ul class="cell">
+            <il>Description: </il>
+            <il th:text="${r.description}"></il>
+        </ul>
+    </div>
+</div>
+<script>
+    //goes to a room
+    $(".chooseroom").click(function() {
+        var str = this.id;
+        location.href = '/admin/' + str;
+    });
+
+    //deletes a room
+    $("#deleteRoom").click(function() {
+
+        var str = $("#deleteById").val();
+
+        $.ajax({
+            url: '/delete/' + str,
+            type: 'DELETE',
+            success: function (result) {
+            }
+        });
+    });
+</script>
+</body>
+</html>
+
+

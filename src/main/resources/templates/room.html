@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/roomstyle.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <title th:text="${title}">Title</title>
+</head>
+<body>
+    <p>Room details</p>
+
+    <!-- Allows users to book a room-->
+    <div class="bookRoom">
+        <form th:object="${newBooking}" method="post">
+            <p>Name of user</p>
+            <input type="text" th:field="*{u_name}"/>
+            <p>Comment</p>
+            <input type="text" th:field="*{comment}"/>
+            <p>ID of available date</p>
+            <input type="text" th:field="*{id}" id="idField" readonly/>
+            <button type="submit" id="newBooking">Book room</button>
+        </form>
+    </div>
+
+    <h1>Click on an available date to select the ID of the date you want to book.</h1>
+
+    <!-- Shows available dates for the current room-->
+    <div th:each="a : ${availability}" class="row" id="'div' + ${roomid}">
+        <div th:unless="${a.booked}" class="clickable" th:id="${a.id}">
+            <ul class="cell ">
+                <il>Availability ID: </il>
+                <il th:text="${a.id}"></il>
+            </ul>
+            <ul class="cell">
+                <il>Date: </il>
+                <il th:text="${a.date}"></il>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        $(".clickable").click(function () {
+            var str = this.id;
+            $("#idField").val(str);
+        })
+    </script>
+
+</body>
+</html>

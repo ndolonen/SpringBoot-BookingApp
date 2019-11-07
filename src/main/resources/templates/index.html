@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<!-- Make site adapt to the width of the user device-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${title}">Title</title>
+    <link rel="stylesheet" href="/indexstyle.css">
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<nav id="navigation">
+    <a href="/">Home</a>
+    <a href="/logout">Logout</a>
+</nav>
+
+
+<!-- Admin button for easy access to the admin page (will redirect to Spring Boot login if you're not already logged in as admin-->
+<div class="adminButton">
+    <a href="/admin">
+        <input type="button" value="Access Admin"/>
+    </a>
+</div>
+
+<!-- Information on where to access admin-->
+<div class="container">
+    <div class="alert alert-success">
+        <strong>Admins can access the Administration GUI by clicking the box on the top right.</strong>
+    </div>
+</div>
+
+<!-- Main -->
+<div class="greeting">
+<h1>Welcome to our booking site!</h1>
+<p>Here you may book your next meeting room! Click the button below to get started, or view the available rooms below</p>
+</div>
+
+<!-- Shows every room -->
+<h1>Click on a room to see available booking dates for the room</h1>
+<div th:each="r : ${room}" class="row">
+    <div class="chooseroom" th:id="${r.id}">
+        <il><img th:src="'/image/' + ${r.imagename}" height="100" width="100"></il>
+        <ul class="cell ">
+            <il>ID: </il>
+            <il th:text="${r.id}"></il>
+        </ul>
+        <ul class="cell">
+            <il>Name: </il>
+            <il th:text="${r.name}"></il>
+        </ul>
+        <ul class="cell">
+            <il>Description: </il>Description
+            <il th:text="${r.description}"></il>
+        </ul>
+    </div>
+</div>
+<script>
+    //lets you choose a room by click
+    $(".chooseroom").click(function() {
+        var str = this.id;
+        location.href = '/room/' + str;
+    });
+</script>
+
+</body>
+</html>
